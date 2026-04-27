@@ -4,9 +4,18 @@ import '../../data/models/plant_analysis.dart';
 import '../../data/models/diagnosis_result.dart';
 import '../../data/models/plant.dart';
 import '../../data/repositories/ai_repository.dart';
+import '../../data/repositories/ai_repository_impl.dart';
 import '../../data/repositories/mock_ai_repository.dart';
+import './gemini_provider.dart';
 
-final aiRepositoryProvider = Provider<AiRepository>((ref) => MockAiRepository());
+// Use mock for testing, swap to AiRepositoryImpl for real Gemini calls
+final aiRepositoryProvider = Provider<AiRepository>((ref) {
+  // Uncomment below to use real Gemini API:
+  // return AiRepositoryImpl(gemini: ref.watch(geminiServiceProvider));
+
+  // Default: use mock for development/testing
+  return MockAiRepository();
+});
 
 class IdentifyState {
   final AsyncValue<PlantAnalysis?> analysis;

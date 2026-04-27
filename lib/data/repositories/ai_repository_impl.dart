@@ -3,18 +3,18 @@ import '../models/plant_analysis.dart';
 import '../models/diagnosis_result.dart';
 import '../models/maintenance_task.dart';
 import '../models/plant.dart';
-import '../services/openai_service.dart';
+import '../services/gemini_service.dart';
 import '../../core/extensions/datetime_ext.dart';
 import 'ai_repository.dart';
 
 class AiRepositoryImpl implements AiRepository {
-  final OpenAiService _openAi;
+  final GeminiService _gemini;
 
-  AiRepositoryImpl({required OpenAiService openAi}) : _openAi = openAi;
+  AiRepositoryImpl({required GeminiService gemini}) : _gemini = gemini;
 
   @override
   Future<PlantAnalysis> identifyPlant(Uint8List imageBytes) async {
-    final json = await _openAi.identifyPlant(imageBytes);
+    final json = await _gemini.identifyPlant(imageBytes);
     if (json.containsKey('error')) {
       throw Exception(json['error']);
     }
@@ -23,7 +23,7 @@ class AiRepositoryImpl implements AiRepository {
 
   @override
   Future<List<MaintenanceTask>> generateSchedule(Plant plant, String userId) async {
-    final json = await _openAi.generateSchedule(
+    final json = await _gemini.generateSchedule(
       plant.commonName,
       plant.genus,
       plant.species,
@@ -56,7 +56,7 @@ class AiRepositoryImpl implements AiRepository {
 
   @override
   Future<DiagnosisResult> diagnosePlant(Uint8List imageBytes, {Plant? plant}) async {
-    final json = await _openAi.diagnosePlant(imageBytes, plantName: plant?.commonName);
+    final json = await _gemini.diagnosePlant(imageBytes, plantName: plant?.commonName);
     return DiagnosisResult.fromJson(json, plantId: plant?.id ?? '');
   }
 }
