@@ -1,0 +1,47 @@
+name: plant_care
+description: Plant maintenance app with AI identification and RPG dashboard
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.22.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Firebase
+  firebase_core: ^3.3.0
+  firebase_auth: ^5.1.0
+  cloud_firestore: ^5.2.0
+  firebase_storage: ^12.1.0
+
+  # State management
+  flutter_riverpod: ^2.5.1
+
+  # Navigation
+  go_router: ^14.2.7
+
+  # AI + networking
+  http: ^1.2.1
+
+  # Camera + image
+  image_picker: ^1.1.2
+
+  # Notifications
+  flutter_local_notifications: ^17.2.2
+
+  # UI utilities
+  intl: ^0.19.0
+  percent_indicator: ^4.2.3
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
